@@ -1,15 +1,17 @@
+import { type FC } from 'react';
+
 interface FavoritesCardProps {
     image: string;
     price: number;
-    rating: number; // 0-5 scale, will be converted to percentage
+    rating: number; // 0-5
     title: string;
     type: string;
     isPremium?: boolean;
     isBookmarked?: boolean;
 }
 
-const FavoritesCard = ({ image, price, rating, title, type, isPremium = false, isBookmarked = false }: FavoritesCardProps) => {
-    const ratingPercentage = (rating / 5) * 100;
+const FavoritesCard: FC<FavoritesCardProps> = ({ image, price, rating, title, type, isPremium = false, isBookmarked = false }) => {
+    const ratingPercentage = Math.round((rating / 5) * 100);
 
     return (
         <article className="favorites__card place-card">

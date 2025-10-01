@@ -1,10 +1,11 @@
+import { type FC } from 'react';
 import MainPage from './components/MainPage/MainPage'
 
 interface AppProps {
   placesCount: number;
 }
 
-function App({ placesCount }: AppProps) {
+const App: FC<AppProps> = ({ placesCount }) => {
 
   return (
     <MainPage placesCount={placesCount} />

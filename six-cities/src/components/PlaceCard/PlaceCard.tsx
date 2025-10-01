@@ -1,15 +1,17 @@
+import { type FC } from 'react';
+
 interface PlaceCardProps {
     image: string;
     price: number;
-    rating: number; // 0-5 scale, will be converted to percentage
+    rating: number; // 0-5
     title: string;
     type: string;
     isPremium?: boolean;
     isBookmarked?: boolean;
 }
 
-const PlaceCard = ({ image, price, rating, title, type, isPremium = false, isBookmarked = false }: PlaceCardProps) => {
-    const ratingPercentage = (rating / 5) * 100;
+const PlaceCard: FC<PlaceCardProps> = ({ image, price, rating, title, type, isPremium = false, isBookmarked = false }) => {
+    const ratingPercentage = Math.round((rating / 5) * 100);
 
     return (
         <article className="cities__card place-card">
