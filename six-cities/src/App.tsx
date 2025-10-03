@@ -1,15 +1,32 @@
 import { type FC } from 'react';
-import MainPage from './components/MainPage/MainPage'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MainPage from './components/MainPage/MainPage';
+import Login from './components/Login/Login';
+import Favorites from './components/Favorites/Favorites';
+import Offer from './components/Offer/Offer';
+import NotFound from './components/NotFound/NotFound';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 interface AppProps {
   placesCount: number;
 }
 
 const App: FC<AppProps> = ({ placesCount }) => {
-
   return (
-    <MainPage placesCount={placesCount} />
-  )
-}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainPage placesCount={placesCount} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/favorites" element={
+          <PrivateRoute>
+            <Favorites />
+          </PrivateRoute>
+        } />
+        <Route path="/offer/:id" element={<Offer />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;

@@ -1,6 +1,7 @@
 import { type FC } from 'react';
 import PlaceCard from '../PlaceCard/PlaceCard';
-import Sprite from '../Sprite';
+import Sprite from '../Sprite/Sprite';
+import { Link } from 'react-router-dom';
 
 interface NearPlace {
     id: string;
@@ -13,39 +14,40 @@ interface NearPlace {
     isBookmarked: boolean;
 }
 
+const nearPlaces: NearPlace[] = [
+    {
+        id: '1',
+        image: '/img/room.jpg',
+        price: 80,
+        rating: 4,
+        title: 'Wood and stone place',
+        type: 'Private room',
+        isPremium: false,
+        isBookmarked: true
+    },
+    {
+        id: '2',
+        image: '/img/apartment-02.jpg',
+        price: 132,
+        rating: 4,
+        title: 'Canal View Prinsengracht',
+        type: 'Apartment',
+        isPremium: false,
+        isBookmarked: false
+    },
+    {
+        id: '3',
+        image: '/img/apartment-03.jpg',
+        price: 180,
+        rating: 5,
+        title: 'Nice, cozy, warm big bed apartment',
+        type: 'Apartment',
+        isPremium: true,
+        isBookmarked: false
+    }
+];
+
 const Offer: FC = () => {
-    const nearPlaces: NearPlace[] = [
-        {
-            id: '1',
-            image: 'img/room.jpg',
-            price: 80,
-            rating: 4,
-            title: 'Wood and stone place',
-            type: 'Private room',
-            isPremium: false,
-            isBookmarked: true
-        },
-        {
-            id: '2',
-            image: 'img/apartment-02.jpg',
-            price: 132,
-            rating: 4,
-            title: 'Canal View Prinsengracht',
-            type: 'Apartment',
-            isPremium: false,
-            isBookmarked: false
-        },
-        {
-            id: '3',
-            image: 'img/apartment-03.jpg',
-            price: 180,
-            rating: 5,
-            title: 'Nice, cozy, warm big bed apartment',
-            type: 'Apartment',
-            isPremium: true,
-            isBookmarked: false
-        }
-    ];
 
     return (
         <>
@@ -56,9 +58,9 @@ const Offer: FC = () => {
                     <div className="container">
                         <div className="header__wrapper">
                             <div className="header__left">
-                                <a className="header__logo-link" href="main.html">
-                                    <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                                </a>
+                                <Link className="header__logo-link" to="/">
+                                    <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41" />
+                                </Link>
                             </div>
                             <nav className="header__nav">
                                 <ul className="header__nav-list">
@@ -86,22 +88,22 @@ const Offer: FC = () => {
                         <div className="property__gallery-container container">
                             <div className="property__gallery">
                                 <div className="property__image-wrapper">
-                                    <img className="property__image" src="img/room.jpg" alt="Photo studio" />
+                                    <img className="property__image" src="/img/room.jpg" alt="Photo studio" />
                                 </div>
                                 <div className="property__image-wrapper">
-                                    <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
+                                    <img className="property__image" src="/img/apartment-01.jpg" alt="Photo studio" />
                                 </div>
                                 <div className="property__image-wrapper">
-                                    <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio" />
+                                    <img className="property__image" src="/img/apartment-02.jpg" alt="Photo studio" />
                                 </div>
                                 <div className="property__image-wrapper">
-                                    <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio" />
+                                    <img className="property__image" src="/img/apartment-03.jpg" alt="Photo studio" />
                                 </div>
                                 <div className="property__image-wrapper">
-                                    <img className="property__image" src="img/studio-01.jpg" alt="Photo studio" />
+                                    <img className="property__image" src="/img/studio-01.jpg" alt="Photo studio" />
                                 </div>
                                 <div className="property__image-wrapper">
-                                    <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
+                                    <img className="property__image" src="/img/apartment-01.jpg" alt="Photo studio" />
                                 </div>
                             </div>
                         </div>
@@ -182,7 +184,7 @@ const Offer: FC = () => {
                                     <h2 className="property__host-title">Meet the host</h2>
                                     <div className="property__host-user user">
                                         <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                                            <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
+                                            <img className="property__avatar user__avatar" src="/img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
                                         </div>
                                         <span className="property__user-name">
                                             Angelina
@@ -206,7 +208,7 @@ const Offer: FC = () => {
                                         <li className="reviews__item">
                                             <div className="reviews__user user">
                                                 <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                                                    <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
+                                                    <img className="reviews__avatar user__avatar" src="/img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
                                                 </div>
                                                 <span className="reviews__user-name">
                                                     Max

@@ -1,6 +1,7 @@
 import { type FC } from 'react';
 import FavoritesCard from './FavoritesCard/FavoritesCard';
 import Sprite from '../Sprite/Sprite';
+import { Link } from 'react-router-dom';
 
 interface FavoritePlace {
     id: string;
@@ -16,7 +17,7 @@ interface FavoritePlace {
 const favoritePlaces: FavoritePlace[] = [
     {
         id: '1',
-        image: 'img/apartment-small-03.jpg',
+        image: '/img/apartment-small-03.jpg',
         price: 180,
         rating: 5,
         title: 'Nice, cozy, warm big bed apartment',
@@ -26,7 +27,7 @@ const favoritePlaces: FavoritePlace[] = [
     },
     {
         id: '2',
-        image: 'img/room-small.jpg',
+        image: '/img/room-small.jpg',
         price: 80,
         rating: 4,
         title: 'Wood and stone place',
@@ -36,7 +37,7 @@ const favoritePlaces: FavoritePlace[] = [
     },
     {
         id: '3',
-        image: 'img/apartment-small-04.jpg',
+        image: '/img/apartment-small-04.jpg',
         price: 180,
         rating: 5,
         title: 'White castle',
@@ -56,9 +57,9 @@ const Favorites: FC = () => {
                     <div className="container">
                         <div className="header__wrapper">
                             <div className="header__left">
-                                <a className="header__logo-link" href="main.html">
-                                    <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                                </a>
+                                <Link className="header__logo-link" to="/">
+                                    <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41" />
+                                </Link>
                             </div>
                             <nav className="header__nav">
                                 <ul className="header__nav-list">
@@ -125,7 +126,7 @@ const Favorites: FC = () => {
                 </main>
                 <footer className="footer container">
                     <a className="footer__logo-link" href="main.html">
-                        <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
+                        <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33" />
                     </a>
                 </footer>
             </div>
