@@ -20,7 +20,7 @@ interface Place {
 const places: Place[] = [
     {
         id: '1',
-        image: 'img/apartment-01.jpg',
+        image: '/img/apartment-01.jpg',
         price: 120,
         rating: 4,
         title: 'Beautiful & luxurious apartment at great location',
@@ -30,7 +30,7 @@ const places: Place[] = [
     },
     {
         id: '2',
-        image: 'img/room.jpg',
+        image: '/img/room.jpg',
         price: 80,
         rating: 4,
         title: 'Wood and stone place',
@@ -40,7 +40,7 @@ const places: Place[] = [
     },
     {
         id: '3',
-        image: 'img/apartment-02.jpg',
+        image: '/img/apartment-02.jpg',
         price: 132,
         rating: 4,
         title: 'Canal View Prinsengracht',
@@ -50,7 +50,7 @@ const places: Place[] = [
     },
     {
         id: '4',
-        image: 'img/apartment-03.jpg',
+        image: '/img/apartment-03.jpg',
         price: 180,
         rating: 5,
         title: 'Nice, cozy, warm big bed apartment',
@@ -60,7 +60,7 @@ const places: Place[] = [
     },
     {
         id: '5',
-        image: 'img/room.jpg',
+        image: '/img/room.jpg',
         price: 80,
         rating: 4,
         title: 'Wood and stone place',
@@ -81,7 +81,7 @@ const MainPage: FC<MainPageProps> = ({ placesCount }) => {
                         <div className="header__wrapper">
                             <div className="header__left">
                                 <a className="header__logo-link header__logo-link--active">
-                                    <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+                                    <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41" />
                                 </a>
                             </div>
                             <nav className="header__nav">
