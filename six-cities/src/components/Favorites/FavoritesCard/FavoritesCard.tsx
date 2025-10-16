@@ -1,6 +1,8 @@
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 interface FavoritesCardProps {
+    id: string;
     image: string;
     price: number;
     rating: number; // 0-5
@@ -10,7 +12,7 @@ interface FavoritesCardProps {
     isBookmarked?: boolean;
 }
 
-const FavoritesCard: FC<FavoritesCardProps> = ({ image, price, rating, title, type, isPremium = false, isBookmarked = false }) => {
+const FavoritesCard: FC<FavoritesCardProps> = ({ id, image, price, rating, title, type, isPremium = false, isBookmarked = false }) => {
     const ratingPercentage = Math.round((rating / 5) * 100);
 
     return (
@@ -21,9 +23,7 @@ const FavoritesCard: FC<FavoritesCardProps> = ({ image, price, rating, title, ty
                 </div>
             )}
             <div className="favorites__image-wrapper place-card__image-wrapper">
-                <a href="#">
-                    <img className="place-card__image" src={image} width="150" height="110" alt="Place image" />
-                </a>
+                <img className="place-card__image" src={image} width="150" height="110" alt="Place image" />
             </div>
             <div className="favorites__card-info place-card__info">
                 <div className="place-card__price-wrapper">
@@ -45,7 +45,7 @@ const FavoritesCard: FC<FavoritesCardProps> = ({ image, price, rating, title, ty
                     </div>
                 </div>
                 <h2 className="place-card__name">
-                    <a href="#">{title}</a>
+                    <Link to={`/offer/${id}`}>{title}</Link>
                 </h2>
                 <p className="place-card__type">{type}</p>
             </div>
