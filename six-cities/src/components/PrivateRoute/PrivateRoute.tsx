@@ -7,7 +7,7 @@ interface PrivateRouteProps {
 
 const PrivateRoute: FC<PrivateRouteProps> = ({ children }) => {
     // Пока пользователь всегда не авторизован
-    const isAuthenticated = false;
+    const isAuthenticated = true;
 
     return isAuthenticated ? (
         <>{children}</>

@@ -1,76 +1,14 @@
 import { type FC } from 'react';
-import PlaceCard from '../PlaceCard/PlaceCard';
 import Sprite from '../Sprite/Sprite';
+import OffersList from '../OffersList/OffersList';
+import type { Offer } from '../../mocks/offers';
 
 interface MainPageProps {
     placesCount: number;
+    offers: Offer[];
 }
 
-interface Place {
-    id: string;
-    image: string;
-    price: number;
-    rating: number;
-    title: string;
-    type: string;
-    isPremium: boolean;
-    isBookmarked: boolean;
-}
-
-const places: Place[] = [
-    {
-        id: '1',
-        image: '/img/apartment-01.jpg',
-        price: 120,
-        rating: 4,
-        title: 'Beautiful & luxurious apartment at great location',
-        type: 'Apartment',
-        isPremium: true,
-        isBookmarked: false
-    },
-    {
-        id: '2',
-        image: '/img/room.jpg',
-        price: 80,
-        rating: 4,
-        title: 'Wood and stone place',
-        type: 'Private room',
-        isPremium: false,
-        isBookmarked: true
-    },
-    {
-        id: '3',
-        image: '/img/apartment-02.jpg',
-        price: 132,
-        rating: 4,
-        title: 'Canal View Prinsengracht',
-        type: 'Apartment',
-        isPremium: false,
-        isBookmarked: false
-    },
-    {
-        id: '4',
-        image: '/img/apartment-03.jpg',
-        price: 180,
-        rating: 5,
-        title: 'Nice, cozy, warm big bed apartment',
-        type: 'Apartment',
-        isPremium: true,
-        isBookmarked: false
-    },
-    {
-        id: '5',
-        image: '/img/room.jpg',
-        price: 80,
-        rating: 4,
-        title: 'Wood and stone place',
-        type: 'Private room',
-        isPremium: false,
-        isBookmarked: true
-    }
-];
-
-const MainPage: FC<MainPageProps> = ({ placesCount }) => {
+const MainPage: FC<MainPageProps> = ({ placesCount, offers }) => {
     return (
         <>
             <Sprite />
@@ -163,20 +101,7 @@ const MainPage: FC<MainPageProps> = ({ placesCount }) => {
                                         <li className="places__option" tabIndex={0}>Top rated first</li>
                                     </ul>
                                 </form>
-                                <div className="cities__places-list places__list tabs__content">
-                                    {places.map((place) => (
-                                        <PlaceCard
-                                            key={place.id}
-                                            image={place.image}
-                                            price={place.price}
-                                            rating={place.rating}
-                                            title={place.title}
-                                            type={place.type}
-                                            isPremium={place.isPremium}
-                                            isBookmarked={place.isBookmarked}
-                                        />
-                                    ))}
-                                </div>
+                                <OffersList offers={offers} />
                             </section>
                             <div className="cities__right-section">
                                 <section className="cities__map map"></section>

@@ -1,6 +1,8 @@
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 interface PlaceCardProps {
+    id: string;
     image: string;
     price: number;
     rating: number; // 0-5
@@ -8,22 +10,37 @@ interface PlaceCardProps {
     type: string;
     isPremium?: boolean;
     isBookmarked?: boolean;
+    onMouseEnter?: () => void;
+    onMouseLeave?: () => void;
 }
 
-const PlaceCard: FC<PlaceCardProps> = ({ image, price, rating, title, type, isPremium = false, isBookmarked = false }) => {
+const PlaceCard: FC<PlaceCardProps> = ({
+  id,
+  image,
+  price,
+  rating,
+  title,
+  type,
+  isPremium = false,
+  isBookmarked = false,
+  onMouseEnter,
+  onMouseLeave
+}) => {
     const ratingPercentage = Math.round((rating / 5) * 100);
 
     return (
-        <article className="cities__card place-card">
+        <article
+          className="cities__card place-card"
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        >
             {isPremium && (
                 <div className="place-card__mark">
                     <span>Premium</span>
                 </div>
             )}
             <div className="cities__image-wrapper place-card__image-wrapper">
-                <a href="#">
-                    <img className="place-card__image" src={image} width="260" height="200" alt="Place image" />
-                </a>
+                <img className="place-card__image" src={image} width="260" height="200" alt="Place image" />
             </div>
             <div className="place-card__info">
                 <div className="place-card__price-wrapper">
@@ -45,7 +62,7 @@ const PlaceCard: FC<PlaceCardProps> = ({ image, price, rating, title, type, isPr
                     </div>
                 </div>
                 <h2 className="place-card__name">
-                    <a href="#">{title}</a>
+                    <Link to={`/offer/${id}`}>{title}</Link>
                 </h2>
                 <p className="place-card__type">{type}</p>
             </div>

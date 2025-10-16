@@ -2,52 +2,32 @@ import { type FC } from 'react';
 import FavoritesCard from './FavoritesCard/FavoritesCard';
 import Sprite from '../Sprite/Sprite';
 import { Link } from 'react-router-dom';
+import type { Offer } from '../../mocks/offers';
 
-interface FavoritePlace {
-    id: string;
-    image: string;
-    price: number;
-    rating: number;
-    title: string;
-    type: string;
-    isPremium: boolean;
-    isBookmarked: boolean;
+interface FavoritesProps {
+  offers: Offer[];
 }
 
-const favoritePlaces: FavoritePlace[] = [
-    {
-        id: '1',
-        image: '/img/apartment-small-03.jpg',
-        price: 180,
-        rating: 5,
-        title: 'Nice, cozy, warm big bed apartment',
-        type: 'Apartment',
-        isPremium: true,
-        isBookmarked: true
-    },
-    {
-        id: '2',
-        image: '/img/room-small.jpg',
-        price: 80,
-        rating: 4,
-        title: 'Wood and stone place',
-        type: 'Private room',
-        isPremium: false,
-        isBookmarked: true
-    },
-    {
-        id: '3',
-        image: '/img/apartment-small-04.jpg',
-        price: 180,
-        rating: 5,
-        title: 'White castle',
-        type: 'Apartment',
-        isPremium: false,
-        isBookmarked: true
-    }
-];
 
-const Favorites: FC = () => {
+const Favorites: FC<FavoritesProps> = ({ offers }) => {
+    // Фильтруем только избранные предложения
+    const favoriteOffers = offers.filter(offer => offer.isFavorite);
+
+    // Группируем по городам
+    const offersByCity = favoriteOffers.reduce((acc, offer) => {
+        const cityName = offer.city.name;
+        if (!acc[cityName]) {
+            acc[cityName] = [];
+        }
+        acc[cityName].push(offer);
+        return acc;
+    }, {} as Record<string, Offer[]>);
+
+    const handleTypeConversion = (type: Offer['type']) => {
+        return type === 'apartment' ? 'Apartment' :
+               type === 'room' ? 'Private room' :
+               type === 'house' ? 'House' : 'Hotel';
+    };
 
     return (
         <>
@@ -87,39 +67,32 @@ const Favorites: FC = () => {
                         <section className="favorites">
                             <h1 className="favorites__title">Saved listing</h1>
                             <ul className="favorites__list">
-                                <li className="favorites__locations-items">
-                                    <div className="favorites__locations locations locations--current">
-                                        <div className="locations__item">
-                                            <a className="locations__item-link" href="#">
-                                                <span>Amsterdam</span>
-                                            </a>
+                                {Object.entries(offersByCity).map(([cityName, cityOffers]) => (
+                                    <li key={cityName} className="favorites__locations-items">
+                                        <div className="favorites__locations locations locations--current">
+                                            <div className="locations__item">
+                                                <a className="locations__item-link" href="#">
+                                                    <span>{cityName}</span>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="favorites__places">
-                                        <FavoritesCard
-                                            {...favoritePlaces[0]}
-                                        />
-
-                                        <FavoritesCard
-                                            {...favoritePlaces[1]}
-                                        />
-                                    </div>
-                                </li>
-
-                                <li className="favorites__locations-items">
-                                    <div className="favorites__locations locations locations--current">
-                                        <div className="locations__item">
-                                            <a className="locations__item-link" href="#">
-                                                <span>Cologne</span>
-                                            </a>
+                                        <div className="favorites__places">
+                                            {cityOffers.map((offer) => (
+                                                <FavoritesCard
+                                                    key={offer.id}
+                                                    id={offer.id}
+                                                    image={offer.image}
+                                                    price={offer.price}
+                                                    rating={offer.rating}
+                                                    title={offer.title}
+                                                    type={handleTypeConversion(offer.type)}
+                                                    isPremium={offer.isPremium}
+                                                    isBookmarked={offer.isFavorite}
+                                                />
+                                            ))}
                                         </div>
-                                    </div>
-                                    <div className="favorites__places">
-                                        <FavoritesCard
-                                            {...favoritePlaces[2]}
-                                        />
-                                    </div>
-                                </li>
+                                    </li>
+                                ))}
                             </ul>
                         </section>
                     </div>
