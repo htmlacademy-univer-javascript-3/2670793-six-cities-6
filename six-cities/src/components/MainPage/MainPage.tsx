@@ -1,7 +1,10 @@
 import { type FC } from 'react';
 import Sprite from '../Sprite/Sprite';
 import OffersList from '../OffersList/OffersList';
+import Map from '../Map/Map';
 import type { Offer } from '../../mocks/offers';
+import { AMSTERDAM } from '../../mocks/city';
+import { POINTS } from '../../mocks/points';
 
 interface MainPageProps {
     placesCount: number;
@@ -104,7 +107,9 @@ const MainPage: FC<MainPageProps> = ({ placesCount, offers }) => {
                                 <OffersList offers={offers} />
                             </section>
                             <div className="cities__right-section">
-                                <section className="cities__map map"></section>
+                                {/* Пока что передаём из mock'ов (Amsterdam) */}
+                                <Map city={AMSTERDAM} points={POINTS} />
+
                             </div>
                         </div>
                     </div>
