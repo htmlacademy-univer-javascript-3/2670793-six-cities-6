@@ -30,9 +30,16 @@ export function useMap(
             instance.addLayer(layer);
 
             setMap(instance);
-            isRenderedRef.current = true
+            isRenderedRef.current = true;
         }
-    }, [mapRef, city]);
+    }, [mapRef]);
+
+    // Обновляем центр карты при изменении города
+    useEffect(() => {
+        if (map) {
+            map.setView([city.lat, city.lng], city.zoom);
+        }
+    }, [map, city]);
 
     return map;
 

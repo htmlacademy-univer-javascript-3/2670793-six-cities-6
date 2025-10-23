@@ -6,25 +6,19 @@ import Favorites from './components/Favorites/Favorites';
 import Offer from './components/Offer/Offer';
 import NotFound from './components/NotFound/NotFound';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-import type { Offer as OfferType } from './mocks/offers';
 
-interface AppProps {
-  placesCount: number;
-  offers: OfferType[];
-}
-
-const App: FC<AppProps> = ({ placesCount, offers }) => {
+const App: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage placesCount={placesCount} offers={offers} />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/favorites" element={
           <PrivateRoute>
-            <Favorites offers={offers} />
+            <Favorites />
           </PrivateRoute>
         } />
-        <Route path="/offer/:id" element={<Offer offers={offers} />} />
+        <Route path="/offer/:id" element={<Offer />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

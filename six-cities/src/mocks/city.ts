@@ -11,3 +11,10 @@ export const AMSTERDAM: City = {
     lng: 4.897976,
     zoom: 12,
 };
+
+export const PARIS: City = {
+    title: 'Paris',
+    lat: 48.8566,
+    lng: 2.3522,
+    zoom: 12,
+};

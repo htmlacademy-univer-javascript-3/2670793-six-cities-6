@@ -2,14 +2,10 @@ import { type FC } from 'react';
 import FavoritesCard from './FavoritesCard/FavoritesCard';
 import Sprite from '../Sprite/Sprite';
 import { Link } from 'react-router-dom';
-import type { Offer } from '../../mocks/offers';
+import { useAppSelector, selectOffers } from '../../store';
 
-interface FavoritesProps {
-  offers: Offer[];
-}
-
-
-const Favorites: FC<FavoritesProps> = ({ offers }) => {
+const Favorites: FC = () => {
+    const offers = useAppSelector(selectOffers);
     // Фильтруем только избранные предложения
     const favoriteOffers = offers.filter(offer => offer.isFavorite);
 

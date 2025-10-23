@@ -3,13 +3,10 @@ import PlaceCard from '../PlaceCard/PlaceCard';
 import Sprite from '../Sprite/Sprite';
 import ReviewForm from '../ReviewForm/ReviewForm';
 import { Link, useParams } from 'react-router-dom';
-import type { Offer } from '../../mocks/offers';
+import { useAppSelector, selectOffers } from '../../store';
 
-interface OfferProps {
-    offers: Offer[];
-}
-
-const OfferComponent: FC<OfferProps> = ({ offers }) => {
+const OfferComponent: FC = () => {
+    const offers = useAppSelector(selectOffers);
     const { id } = useParams<{ id: string }>();
     const currentOffer = offers.find(offer => offer.id === id);
 
