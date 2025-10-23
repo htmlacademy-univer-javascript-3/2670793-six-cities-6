@@ -2,16 +2,37 @@ import { type FC } from 'react';
 import Sprite from '../Sprite/Sprite';
 import OffersList from '../OffersList/OffersList';
 import Map from '../Map/Map';
-import type { Offer } from '../../mocks/offers';
-import { AMSTERDAM } from '../../mocks/city';
-import { POINTS } from '../../mocks/points';
+import LocationsList from '../LocationsList/LocationsList';
+import { useAppSelector, useAppDispatch, selectOffersByCity, selectCity, changeCity, selectPointsByCity } from '../../store';
+import { AMSTERDAM, PARIS } from '../../mocks/city';
 
-interface MainPageProps {
-    placesCount: number;
-    offers: Offer[];
-}
+const MainPage: FC = () => {
+    const offers = useAppSelector(selectOffersByCity);
+    const city = useAppSelector(selectCity);
+    const points = useAppSelector(selectPointsByCity);
+    const dispatch = useAppDispatch();
 
-const MainPage: FC<MainPageProps> = ({ placesCount, offers }) => {
+    const getCityByName = (cityName: string) => {
+        switch (cityName) {
+            case 'Paris':
+                return PARIS;
+            case 'Amsterdam':
+                return AMSTERDAM;
+            default:
+                // Для остальных городов используем координаты Amsterdam как заглушку
+                return {
+                    title: cityName,
+                    lat: AMSTERDAM.lat,
+                    lng: AMSTERDAM.lng,
+                    zoom: AMSTERDAM.zoom
+                };
+        }
+    };
+
+    const handleCityClick = (cityName: string) => {
+        const selectedCity = getCityByName(cityName);
+        dispatch(changeCity(selectedCity));
+    };
     return (
         <>
             <Sprite />
@@ -49,46 +70,13 @@ const MainPage: FC<MainPageProps> = ({ placesCount, offers }) => {
                 <main className="page__main page__main--index">
                     <h1 className="visually-hidden">Cities</h1>
                     <div className="tabs">
-                        <section className="locations container">
-                            <ul className="locations__list tabs__list">
-                                <li className="locations__item">
-                                    <a className="locations__item-link tabs__item" href="#">
-                                        <span>Paris</span>
-                                    </a>
-                                </li>
-                                <li className="locations__item">
-                                    <a className="locations__item-link tabs__item" href="#">
-                                        <span>Cologne</span>
-                                    </a>
-                                </li>
-                                <li className="locations__item">
-                                    <a className="locations__item-link tabs__item" href="#">
-                                        <span>Brussels</span>
-                                    </a>
-                                </li>
-                                <li className="locations__item">
-                                    <a className="locations__item-link tabs__item tabs__item--active">
-                                        <span>Amsterdam</span>
-                                    </a>
-                                </li>
-                                <li className="locations__item">
-                                    <a className="locations__item-link tabs__item" href="#">
-                                        <span>Hamburg</span>
-                                    </a>
-                                </li>
-                                <li className="locations__item">
-                                    <a className="locations__item-link tabs__item" href="#">
-                                        <span>Dusseldorf</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </section>
+                        <LocationsList activeCity={city} onCityClick={handleCityClick} />
                     </div>
                     <div className="cities">
                         <div className="cities__places-container container">
                             <section className="cities__places places">
                                 <h2 className="visually-hidden">Places</h2>
-                                <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+                                <b className="places__found">{offers.length} places to stay in {city.title}</b>
                                 <form className="places__sorting" action="#" method="get">
                                     <span className="places__sorting-caption">Sort by</span>{' '}
                                     <span className="places__sorting-type" tabIndex={0}>
@@ -107,8 +95,7 @@ const MainPage: FC<MainPageProps> = ({ placesCount, offers }) => {
                                 <OffersList offers={offers} />
                             </section>
                             <div className="cities__right-section">
-                                {/* Пока что передаём из mock'ов (Amsterdam) */}
-                                <Map city={AMSTERDAM} points={POINTS} />
+                                <Map city={city} points={points} />
 
                             </div>
                         </div>

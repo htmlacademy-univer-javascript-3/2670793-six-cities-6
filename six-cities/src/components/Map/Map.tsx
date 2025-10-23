@@ -1,4 +1,4 @@
-import { Icon, Marker } from 'leaflet';
+import { Icon, Marker, LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import type { FC } from "react";
@@ -23,18 +23,31 @@ const defaultCustomIcon = new Icon({
 const Map: FC<MapProps> = ({ city, points }) => {
     const mapRef = useRef(null);
     const map = useMap(mapRef, city);
+    const markersLayerRef = useRef<LayerGroup | null>(null);
 
     useEffect(() => {
         if (map) {
+            // Удаляем предыдущие маркеры
+            if (markersLayerRef.current) {
+                map.removeLayer(markersLayerRef.current);
+            }
+
+            // Создаем новую группу маркеров
+            const markersLayer = new LayerGroup();
+
             points.forEach((point) => {
-                new Marker({
+                const marker = new Marker({
                     lat: point.lat,
                     lng: point.lng,
                 }, {
                     icon: defaultCustomIcon,
-                })
-                    .addTo(map);
+                });
+                markersLayer.addLayer(marker);
             });
+
+            // Добавляем маркеры на карту
+            map.addLayer(markersLayer);
+            markersLayerRef.current = markersLayer;
         }
     }, [map, points]);
 
