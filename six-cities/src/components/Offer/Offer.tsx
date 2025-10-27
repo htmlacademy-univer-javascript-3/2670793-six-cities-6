@@ -54,7 +54,7 @@ const OfferComponent: FC = () => {
                     <section className="property">
                         <div className="property__gallery-container container">
                             <div className="property__gallery">
-                                {currentOffer.images.map((image, index) => (
+                                {currentOffer.images?.map((image, index) => (
                                     <div key={index} className="property__image-wrapper">
                                         <img className="property__image" src={image} alt={`Photo ${index + 1}`} />
                                     </div>
@@ -92,48 +92,58 @@ const OfferComponent: FC = () => {
                                          currentOffer.type === 'room' ? 'Private room' :
                                          currentOffer.type === 'house' ? 'House' : 'Hotel'}
                                     </li>
-                                    <li className="property__feature property__feature--bedrooms">
-                                        {currentOffer.bedrooms} Bedrooms
-                                    </li>
-                                    <li className="property__feature property__feature--adults">
-                                        Max {currentOffer.maxAdults} adults
-                                    </li>
+                                    {currentOffer.bedrooms && (
+                                        <li className="property__feature property__feature--bedrooms">
+                                            {currentOffer.bedrooms} Bedrooms
+                                        </li>
+                                    )}
+                                    {currentOffer.maxAdults && (
+                                        <li className="property__feature property__feature--adults">
+                                            Max {currentOffer.maxAdults} adults
+                                        </li>
+                                    )}
                                 </ul>
                                 <div className="property__price">
                                     <b className="property__price-value">&euro;{currentOffer.price}</b>
                                     <span className="property__price-text">  night</span>
                                 </div>
-                                <div className="property__inside">
-                                    <h2 className="property__inside-title">What&apos;s inside</h2>
-                                    <ul className="property__inside-list">
-                                        {currentOffer.goods.map((good, index) => (
-                                            <li key={index} className="property__inside-item">
-                                                {good}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <div className="property__host">
-                                    <h2 className="property__host-title">Meet the host</h2>
-                                    <div className="property__host-user user">
-                                        <div className={`property__avatar-wrapper ${currentOffer.host.isPro ? 'property__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
-                                            <img className="property__avatar user__avatar" src={currentOffer.host.avatarUrl} width="74" height="74" alt="Host avatar" />
-                                        </div>
-                                        <span className="property__user-name">
-                                            {currentOffer.host.name}
-                                        </span>
-                                        {currentOffer.host.isPro && (
-                                            <span className="property__user-status">
-                                                Pro
+                                {currentOffer.goods && currentOffer.goods.length > 0 && (
+                                    <div className="property__inside">
+                                        <h2 className="property__inside-title">What&apos;s inside</h2>
+                                        <ul className="property__inside-list">
+                                            {currentOffer.goods.map((good, index) => (
+                                                <li key={index} className="property__inside-item">
+                                                    {good}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                                {currentOffer.host && (
+                                    <div className="property__host">
+                                        <h2 className="property__host-title">Meet the host</h2>
+                                        <div className="property__host-user user">
+                                            <div className={`property__avatar-wrapper ${currentOffer.host.isPro ? 'property__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
+                                                <img className="property__avatar user__avatar" src={currentOffer.host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                                            </div>
+                                            <span className="property__user-name">
+                                                {currentOffer.host.name}
                                             </span>
+                                            {currentOffer.host.isPro && (
+                                                <span className="property__user-status">
+                                                    Pro
+                                                </span>
+                                            )}
+                                        </div>
+                                        {currentOffer.description && (
+                                            <div className="property__description">
+                                                <p className="property__text">
+                                                    {currentOffer.description}
+                                                </p>
+                                            </div>
                                         )}
                                     </div>
-                                    <div className="property__description">
-                                        <p className="property__text">
-                                            {currentOffer.description}
-                                        </p>
-                                    </div>
-                                </div>
+                                )}
                                 <section className="property__reviews reviews">
                                     <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
                                     <ul className="reviews__list">
@@ -178,7 +188,7 @@ const OfferComponent: FC = () => {
                                         <PlaceCard
                                             key={offer.id}
                                             id={offer.id}
-                                            image={offer.image}
+                                            image={offer.previewImage}
                                             price={offer.price}
                                             rating={offer.rating}
                                             title={offer.title}

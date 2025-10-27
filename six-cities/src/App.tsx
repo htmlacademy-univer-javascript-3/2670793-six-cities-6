@@ -9,7 +9,7 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 const App: FC = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />

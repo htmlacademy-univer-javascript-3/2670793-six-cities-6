@@ -3,10 +3,10 @@ import { createRoot } from 'react-dom/client'
 import './main.css'
 import App from './App.tsx'
 import { Provider } from 'react-redux'
-import { store, loadAllOffers } from './store'
+import { store, fetchOffers } from './store'
 
-// Инициализируем store начальными данными
-store.dispatch(loadAllOffers());
+// Загружаем предложения с сервера при старте приложения
+store.dispatch(fetchOffers());
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

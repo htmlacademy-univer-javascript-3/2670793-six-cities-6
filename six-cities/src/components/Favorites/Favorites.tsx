@@ -3,6 +3,7 @@ import FavoritesCard from './FavoritesCard/FavoritesCard';
 import Sprite from '../Sprite/Sprite';
 import { Link } from 'react-router-dom';
 import { useAppSelector, selectOffers } from '../../store';
+import type { Offer } from '../../types/offer';
 
 const Favorites: FC = () => {
     const offers = useAppSelector(selectOffers);
@@ -77,7 +78,7 @@ const Favorites: FC = () => {
                                                 <FavoritesCard
                                                     key={offer.id}
                                                     id={offer.id}
-                                                    image={offer.image}
+                                                    image={offer.previewImage}
                                                     price={offer.price}
                                                     rating={offer.rating}
                                                     title={offer.title}

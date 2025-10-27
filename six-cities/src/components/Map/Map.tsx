@@ -3,8 +3,8 @@ import 'leaflet/dist/leaflet.css';
 
 import type { FC } from "react";
 import { useEffect, useRef } from 'react';
-import { type City } from '../../mocks/city';
-import { type Points } from '../../mocks/points';
+import type { City } from '../../types/city';
+import type { Points } from '../../types/map';
 import { URL_MARKER_DEFAULT } from '../../const';
 
 import useMap from '../../hooks/useMap';

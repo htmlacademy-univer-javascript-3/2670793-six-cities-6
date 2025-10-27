@@ -2,37 +2,48 @@ import { type FC } from 'react';
 import Sprite from '../Sprite/Sprite';
 import OffersList from '../OffersList/OffersList';
 import Map from '../Map/Map';
-import LocationsList from '../LocationsList/LocationsList';
-import { useAppSelector, useAppDispatch, selectOffersByCity, selectCity, changeCity, selectPointsByCity } from '../../store';
-import { AMSTERDAM, PARIS } from '../../mocks/city';
+import CitiesList from '../CitiesList/CitiesList';
+import Spinner from '../Spinner/Spinner';
+import { useAppSelector, useAppDispatch, selectOffersByCity, selectCity, changeCity, selectPointsByCity, selectOffersLoadingStatus, selectCities } from '../../store';
 
 const MainPage: FC = () => {
     const offers = useAppSelector(selectOffersByCity);
     const city = useAppSelector(selectCity);
     const points = useAppSelector(selectPointsByCity);
+    const cities = useAppSelector(selectCities);
+    const isOffersLoading = useAppSelector(selectOffersLoadingStatus);
     const dispatch = useAppDispatch();
 
     const getCityByName = (cityName: string) => {
-        switch (cityName) {
-            case 'Paris':
-                return PARIS;
-            case 'Amsterdam':
-                return AMSTERDAM;
-            default:
-                // Для остальных городов используем координаты Amsterdam как заглушку
-                return {
-                    title: cityName,
-                    lat: AMSTERDAM.lat,
-                    lng: AMSTERDAM.lng,
-                    zoom: AMSTERDAM.zoom
-                };
-        }
+        return cities.find((city) => city.title === cityName);
     };
 
     const handleCityClick = (cityName: string) => {
         const selectedCity = getCityByName(cityName);
-        dispatch(changeCity(selectedCity));
+        if (selectedCity) {
+            dispatch(changeCity(selectedCity));
+        }
     };
+    if (isOffersLoading) {
+        return (
+            <>
+                <Sprite />
+                <div className="page page--gray page--main">
+                    <main className="page__main page__main--index">
+                        <div className="cities">
+                            <div className="cities__places-container container">
+                                <section className="cities__places places">
+                                    <h2 className="visually-hidden">Places</h2>
+                                    <Spinner />
+                                </section>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
             <Sprite />
@@ -70,7 +81,7 @@ const MainPage: FC = () => {
                 <main className="page__main page__main--index">
                     <h1 className="visually-hidden">Cities</h1>
                     <div className="tabs">
-                        <LocationsList activeCity={city} onCityClick={handleCityClick} />
+                        <CitiesList cities={cities} activeCity={city} onCityClick={handleCityClick} />
                     </div>
                     <div className="cities">
                         <div className="cities__places-container container">

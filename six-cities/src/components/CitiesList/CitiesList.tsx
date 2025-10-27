@@ -1,29 +1,29 @@
 import { type FC } from 'react';
-import { CITIES } from '../../const';
-import type { City } from '../../mocks/city';
+import type { City } from '../../types/city';
 
-interface LocationsListProps {
+interface CitiesListProps {
+  cities: City[];
   activeCity: City;
   onCityClick: (cityName: string) => void;
 }
 
-const LocationsList: FC<LocationsListProps> = ({ activeCity, onCityClick }) => {
+const CitiesList: FC<CitiesListProps> = ({ cities, activeCity, onCityClick }) => {
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {CITIES.map((cityName) => (
-          <li key={cityName} className="locations__item">
+        {cities.map((city) => (
+          <li key={city.title} className="locations__item">
             <a
               className={`locations__item-link tabs__item ${
-                activeCity.title === cityName ? 'tabs__item--active' : ''
+                activeCity.title === city.title ? 'tabs__item--active' : ''
               }`}
               href="#"
               onClick={(evt) => {
                 evt.preventDefault();
-                onCityClick(cityName);
+                onCityClick(city.title);
               }}
             >
-              <span>{cityName}</span>
+              <span>{city.title}</span>
             </a>
           </li>
         ))}
@@ -32,4 +32,4 @@ const LocationsList: FC<LocationsListProps> = ({ activeCity, onCityClick }) => {
   );
 };
 
-export default LocationsList;
+export default CitiesList;

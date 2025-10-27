@@ -1,6 +1,6 @@
 import { type FC, useState } from 'react';
 import PlaceCard from '../PlaceCard/PlaceCard';
-import type { Offer } from '../../mocks/offers';
+import type { Offer } from '../../types/offer';
 
 interface OffersListProps {
   offers: Offer[];
@@ -14,7 +14,7 @@ const getPlaceCardProps = (offer: Offer) => {
 
   return {
     id: offer.id,
-    image: offer.image,
+    image: offer.previewImage,
     price: offer.price,
     rating: offer.rating,
     title: offer.title,

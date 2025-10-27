@@ -1,5 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
-import type { State } from '../types/state';
+import type { State } from './reducer';
+import type { City } from '../types/city';
+import type { Offer } from '../types/offer';
 
 export const selectCity = (state: State) => state.city;
 
@@ -17,4 +19,26 @@ export const selectPointsByCity = createSelector(
         lat: offer.location.latitude,
         lng: offer.location.longitude
     }))
+);
+
+export const selectOffersLoadingStatus = (state: State) => state.isOffersLoading;
+
+export const selectCities = createSelector(
+  [selectOffers],
+  (offers) => {
+    const citiesMap = new Map<string, { title: string; lat: number; lng: number; zoom: number }>();
+
+    offers.forEach((offer) => {
+      if (!citiesMap.has(offer.city.name)) {
+        citiesMap.set(offer.city.name, {
+          title: offer.city.name,
+          lat: offer.city.location.latitude,
+          lng: offer.city.location.longitude,
+          zoom: offer.city.location.zoom,
+        });
+      }
+    });
+
+    return Array.from(citiesMap.values());
+  }
 );
