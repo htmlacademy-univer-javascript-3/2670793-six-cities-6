@@ -9,12 +9,12 @@ export const selectOffers = (state: State) => state.offers;
 
 export const selectOffersByCity = createSelector(
     [selectCity, selectOffers],
-    (city, offers) => offers.filter((offer) => offer.city.name === city.title)
+    (city: City, offers: Offer[]) => offers.filter((offer) => offer.city.name === city.title)
 );
 
 export const selectPointsByCity = createSelector(
     [selectOffersByCity],
-    (offers) => offers.map((offer) => ({
+    (offers: Offer[]) => offers.map((offer) => ({
         title: offer.title,
         lat: offer.location.latitude,
         lng: offer.location.longitude
@@ -25,10 +25,10 @@ export const selectOffersLoadingStatus = (state: State) => state.isOffersLoading
 
 export const selectCities = createSelector(
   [selectOffers],
-  (offers) => {
+  (offers:Offer[]) => {
     const citiesMap = new Map<string, { title: string; lat: number; lng: number; zoom: number }>();
 
-    offers.forEach((offer) => {
+    offers.forEach((offer: Offer) => {
       if (!citiesMap.has(offer.city.name)) {
         citiesMap.set(offer.city.name, {
           title: offer.city.name,

@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import PlaceCard from '../PlaceCard/PlaceCard';
 import type { Offer } from '../../types/offer';
 
@@ -25,15 +25,15 @@ const getPlaceCardProps = (offer: Offer) => {
 };
 
 const OffersList: FC<OffersListProps> = ({ offers }) => {
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  // const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
-  const handleCardMouseEnter = (offerId: string) => {
-    setActiveCardId(offerId);
-  };
+  // const handleCardMouseEnter = (offerId: string) => {
+  //   setActiveCardId(offerId);
+  // };
 
-  const handleCardMouseLeave = () => {
-    setActiveCardId(null);
-  };
+  // const handleCardMouseLeave = () => {
+  //   setActiveCardId(null);
+  // };
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -41,8 +41,8 @@ const OffersList: FC<OffersListProps> = ({ offers }) => {
         <PlaceCard
           key={offer.id}
           {...getPlaceCardProps(offer)}
-          onMouseEnter={() => handleCardMouseEnter(offer.id)}
-          onMouseLeave={handleCardMouseLeave}
+          // onMouseEnter={() => handleCardMouseEnter(offer.id)}
+          // onMouseLeave={handleCardMouseLeave}
         />
       ))}
     </div>
