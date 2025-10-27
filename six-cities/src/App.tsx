@@ -7,6 +7,7 @@ import Offer from './components/Offer/Offer';
 import NotFound from './components/NotFound/NotFound';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
+
 const App: FC = () => {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
