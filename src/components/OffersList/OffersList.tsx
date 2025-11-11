@@ -7,10 +7,21 @@ interface OffersListProps {
   onActiveCardChange?: (offerId: string | null) => void;
 }
 
+const getTypeDisplayName = (type: Offer['type']) => {
+  switch (type) {
+    case 'apartment':
+      return 'Apartment';
+    case 'room':
+      return 'Private room';
+    case 'house':
+      return 'House';
+    default:
+      return 'Hotel';
+  }
+};
+
 const getPlaceCardProps = (offer: Offer) => {
-  const typeDisplayName = offer.type === 'apartment' ? 'Apartment' :
-                         offer.type === 'room' ? 'Private room' :
-                         offer.type === 'house' ? 'House' : 'Hotel';
+  const typeDisplayName = getTypeDisplayName(offer.type);
 
   return {
     id: offer.id,
@@ -24,18 +35,18 @@ const getPlaceCardProps = (offer: Offer) => {
   };
 };
 
-const OffersList: FC<OffersListProps> = ({ offers }) => {
-  // const [activeCardId, setActiveCardId] = useState<string | null>(null);
+const OffersList: FC<OffersListProps> = ({ offers }) =>
+// const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
-  // const handleCardMouseEnter = (offerId: string) => {
-  //   setActiveCardId(offerId);
-  // };
+// const handleCardMouseEnter = (offerId: string) => {
+//   setActiveCardId(offerId);
+// };
 
-  // const handleCardMouseLeave = () => {
-  //   setActiveCardId(null);
-  // };
+// const handleCardMouseLeave = () => {
+//   setActiveCardId(null);
+// };
 
-  return (
+  (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
         <PlaceCard
@@ -47,6 +58,4 @@ const OffersList: FC<OffersListProps> = ({ offers }) => {
       ))}
     </div>
   );
-};
-
 export default OffersList;

@@ -1,14 +1,14 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import type { Offer } from "../types/offer";
-import type { AxiosInstance } from "axios";
-import { loadOffers, setOffersLoading } from "./action";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import type { Offer } from '../types/offer';
+import type { AxiosInstance } from 'axios';
+import { loadOffers, setOffersLoading } from './action';
 import type { AppDispatch } from '../types/state';
 
 export const fetchOffers = createAsyncThunk<
   void,
   undefined,
   {
-    dispatch: AppDispatch,
+    dispatch: AppDispatch;
     extra: AxiosInstance;
   }
 >('offers/fetchOffers', async (_arg, { extra: api, dispatch }) => {

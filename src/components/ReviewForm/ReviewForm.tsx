@@ -11,15 +11,30 @@ const ReviewForm: FC = () => {
     comment: '',
   });
 
+  const getRatingTitle = (star: number): string => {
+    switch (star) {
+      case 5:
+        return 'perfect';
+      case 4:
+        return 'good';
+      case 3:
+        return 'not bad';
+      case 2:
+        return 'badly';
+      default:
+        return 'terribly';
+    }
+  };
+
   const handleRatingChange = (rating: number) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       rating,
     }));
   };
 
   const handleCommentChange = (comment: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       comment,
     }));
@@ -49,12 +64,7 @@ const ReviewForm: FC = () => {
             <label
               htmlFor={`${star}-stars`}
               className="reviews__rating-label form__rating-label"
-              title={
-                star === 5 ? 'perfect' :
-                star === 4 ? 'good' :
-                star === 3 ? 'not bad' :
-                star === 2 ? 'badly' : 'terribly'
-              }
+              title={getRatingTitle(star)}
             >
               <svg
                 className="form__star-image"

@@ -1,8 +1,8 @@
-import { createReducer } from "@reduxjs/toolkit";
-import type { City } from "../types/city";
-import type { Offer } from "../types/offer";
-import { changeCity, loadOffers, setOffersLoading } from "./action";
-import { PARIS } from "../types/city";
+import { createReducer } from '@reduxjs/toolkit';
+import type { City } from '../types/city';
+import type { Offer } from '../types/offer';
+import { changeCity, loadOffers, setOffersLoading } from './action';
+import { PARIS } from '../types/city';
 
 export type State = {
   city: City;

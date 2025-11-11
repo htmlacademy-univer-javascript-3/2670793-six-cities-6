@@ -6,14 +6,14 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: FC<PrivateRouteProps> = ({ children }) => {
-    // Пока пользователь всегда не авторизован
-    const isAuthenticated = true;
+  // Пока пользователь всегда не авторизован
+  const isAuthenticated = true;
 
-    return isAuthenticated ? (
-        <>{children}</>
-    ) : (
-        <Navigate to="/login" replace />
-    );
+  return isAuthenticated ? (
+    children
+  ) : (
+    <Navigate to="/login" replace />
+  );
 };
 
 export default PrivateRoute;
