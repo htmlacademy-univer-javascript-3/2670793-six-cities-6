@@ -4,6 +4,8 @@ import Sprite from '../Sprite/Sprite';
 import ReviewForm from '../ReviewForm/ReviewForm';
 import { Link, useParams } from 'react-router-dom';
 import { useAppSelector, selectOffers } from '../../store';
+import logo from '../../../public/img/logo.svg?url';
+import avatarMax from '../../../public/img/avatar-max.jpg?url';
 
 const getTypeDisplayName = (type: string) => {
   switch (type) {
@@ -39,7 +41,7 @@ const OfferComponent: FC = () => {
             <div className="header__wrapper">
               <div className="header__left">
                 <Link className="header__logo-link" to="/">
-                  <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41" />
+                  <img className="header__logo" src={logo} alt="6 cities logo" width="81" height="41" />
                 </Link>
               </div>
               <nav className="header__nav">
@@ -161,7 +163,7 @@ const OfferComponent: FC = () => {
                     <li className="reviews__item">
                       <div className="reviews__user user">
                         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                          <img className="reviews__avatar user__avatar" src="/img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
+                          <img className="reviews__avatar user__avatar" src={avatarMax} width="54" height="54" alt="Reviews avatar" />
                         </div>
                         <span className="reviews__user-name">
                                                     Max
