@@ -4,6 +4,7 @@ import Sprite from '../Sprite/Sprite';
 import { Link } from 'react-router-dom';
 import { useAppSelector, selectOffers } from '../../store';
 import type { Offer } from '../../types/offer';
+import logo from '../../../public/img/logo.svg?url';
 
 const Favorites: FC = () => {
   const offers = useAppSelector(selectOffers);
@@ -42,7 +43,7 @@ const Favorites: FC = () => {
             <div className="header__wrapper">
               <div className="header__left">
                 <Link className="header__logo-link" to="/">
-                  <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41" />
+                  <img className="header__logo" src={logo} alt="6 cities logo" width="81" height="41" />
                 </Link>
               </div>
               <nav className="header__nav">
@@ -103,7 +104,7 @@ const Favorites: FC = () => {
         </main>
         <footer className="footer container">
           <a className="footer__logo-link" href="main.html">
-            <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33" />
+            <img className="footer__logo" src={logo} alt="6 cities logo" width="64" height="33" />
           </a>
         </footer>
       </div>
