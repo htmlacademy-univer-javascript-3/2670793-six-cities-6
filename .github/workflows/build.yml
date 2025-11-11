@@ -16,6 +16,8 @@ jobs:
           node-version: '18.x'
 
       - name: Build
+        env:
+          BASE_PATH: "/${{ github.event.repository.name }}/${{ github.event.number }}/"
         run: |
           NODE_ENV=development npm install && npm run build --if-present
           if [[ $(find . -maxdepth 1 -type d -name 'dist') == '' ]]
