@@ -1,6 +1,12 @@
 name: 'Chromatic Deployment'
 
-on: push
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  # Mirror codesandbox behavior for initial PR open
+  pull_request_target:
+    types: [opened]
 
 jobs:
   chromatic-deployment:
@@ -18,10 +24,13 @@ jobs:
   chromatic-comment:
     name: Add chromatic link comment
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
+    permissions: write-all
     steps:
       - uses: mshick/add-pr-comment@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
           message: |
             You can check this code in chromatic with the link
             https://www.chromatic.com/builds?appId=${{ secrets.CHROMATIC_PROJECT_ID }}
