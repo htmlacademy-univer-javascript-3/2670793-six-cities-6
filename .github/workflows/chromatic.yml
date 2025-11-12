@@ -20,9 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: mshick/add-pr-comment@v1
-        env:
-          MY_TOKEN: ${{ secrets.MY_TOKEN }}
         with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           message: |
             You can check this code in chromatic with the link
             https://www.chromatic.com/builds?appId=${{ secrets.CHROMATIC_PROJECT_ID }}
