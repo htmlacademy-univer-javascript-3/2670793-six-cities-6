@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import MainPage from './MainPage';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { reducer } from '../../store/reducer';
+import { reducer, State, AuthorizationStatus } from '../../store/reducer';
 import { PARIS } from '../../types/city';
 import type { Offer } from '../../types/offer';
 import { MemoryRouter } from 'react-router-dom';
@@ -33,11 +33,11 @@ type Story = StoryObj<typeof MainPage>;
 
 export const Default: Story = {
   render: () => {
-    const preloadedState = {
+    const preloadedState: Partial<State> = {
       city: PARIS,
       offers: [sampleOffer('1', 'Paris'), sampleOffer('2', 'Paris')],
       isOffersLoading: false,
-      authorizationStatus: 'NO_AUTH',
+      authorizationStatus: 'NO_AUTH' as AuthorizationStatus,
       user: null,
     };
     const store = configureStore({
@@ -57,11 +57,11 @@ export const Default: Story = {
 
 export const Loading: Story = {
   render: () => {
-    const preloadedState = {
+    const preloadedState: Partial<State> = {
       city: PARIS,
       offers: [],
       isOffersLoading: true,
-      authorizationStatus: 'NO_AUTH',
+      authorizationStatus: 'NO_AUTH' as AuthorizationStatus,
       user: null,
     };
     const store = configureStore({

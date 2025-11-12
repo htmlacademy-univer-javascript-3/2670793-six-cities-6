@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Header from './Header';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { reducer } from '../../store/reducer';
+import { reducer, State, AuthorizationStatus } from '../../store/reducer';
 import { MemoryRouter } from 'react-router-dom';
 
 const meta: Meta<typeof Header> = {
@@ -29,8 +29,8 @@ export const Guest: Story = {
 
 export const Authorized: Story = {
   render: () => {
-    const preloadedState = {
-      authorizationStatus: 'AUTH',
+    const preloadedState: Partial<State> = {
+      authorizationStatus: 'AUTH' as AuthorizationStatus,
       user: {
         name: 'Jane Doe',
         email: 'jane@example.com',
