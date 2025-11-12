@@ -1,51 +1,96 @@
-import { type FC } from 'react';
+import { type FC, useState, type FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sprite from '../Sprite/Sprite';
-import { Link } from 'react-router-dom';
-import logo from '../../../public/img/logo.svg?url';
+import Header from '../Header/Header';
+import { useAppDispatch, login } from '../../store';
+import type { LoginData } from '../../types/auth';
 
-const Login: FC = () => (
-  <>
-    <Sprite />
-    <div className="page page--gray page--login">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to="/">
-                <img className="header__logo" src={logo} alt="6 cities logo" width="81" height="41" />
-              </Link>
-            </div>
+const Login: FC = () => {
+  const [formData, setFormData] = useState<LoginData>({ email: '', password: '' });
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = evt.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setError(null); // Очищаем ошибку при изменении полей
+  };
+
+  const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      await dispatch(login(formData)).unwrap();
+      navigate('/');
+    } catch (err) {
+      setError('Неверный email или пароль');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <>
+      <Sprite />
+      <div className="page page--gray page--login">
+        <Header />
+
+        <main className="page__main page__main--login">
+          <div className="page__login-container container">
+            <section className="login">
+              <h1 className="login__title">Sign in</h1>
+              <form className="login__form form" onSubmit={handleSubmit}>
+                <div className="login__input-wrapper form__input-wrapper">
+                  <label className="visually-hidden">E-mail</label>
+                  <input
+                    className="login__input form__input"
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="login__input-wrapper form__input-wrapper">
+                  <label className="visually-hidden">Password</label>
+                  <input
+                    className="login__input form__input"
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                {error && <p className="login__error" style={{ color: 'red', marginBottom: '10px' }}>{error}</p>}
+                <button
+                  className="login__submit form__submit button"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Signing in...' : 'Sign in'}
+                </button>
+              </form>
+            </section>
+            <section className="locations locations--login locations--current">
+              <div className="locations__item">
+                <a className="locations__item-link" href="#">
+                  <span>Amsterdam</span>
+                </a>
+              </div>
+            </section>
           </div>
-        </div>
-      </header>
-
-      <main className="page__main page__main--login">
-        <div className="page__login-container container">
-          <section className="login">
-            <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required />
-              </div>
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" required />
-              </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
-            </form>
-          </section>
-          <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
-            </div>
-          </section>
-        </div>
-      </main>
-    </div>
-  </>
-);
+        </main>
+      </div>
+    </>
+  );
+};
 
 export default Login;

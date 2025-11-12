@@ -23,6 +23,10 @@ export const selectPointsByCity = createSelector(
 
 export const selectOffersLoadingStatus = (state: State) => state.isOffersLoading;
 
+export const selectAuthorizationStatus = (state: State) => state.authorizationStatus;
+
+export const selectUser = (state: State) => state.user;
+
 export const selectCities = createSelector(
   [selectOffers],
   (offers:Offer[]) => {

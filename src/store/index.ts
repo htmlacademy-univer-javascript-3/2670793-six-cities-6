@@ -23,3 +23,4 @@ export const useAppSelector: TypedUseSelectorHook<State> = useSelector;
 export * from './selectors';
 export * from './action';
 export * from './api-actions';
+export { logout } from './api-actions';

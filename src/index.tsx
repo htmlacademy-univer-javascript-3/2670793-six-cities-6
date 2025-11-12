@@ -3,7 +3,10 @@ import { createRoot } from 'react-dom/client';
 import '../public/css/main.css';
 import App from './App.tsx';
 import { Provider } from 'react-redux';
-import { store, fetchOffers } from './store';
+import { store, fetchOffers, checkAuth } from './store';
+
+// Проверяем авторизацию пользователя при старте приложения
+store.dispatch(checkAuth());
 
 // Загружаем предложения с сервера при старте приложения
 store.dispatch(fetchOffers());
