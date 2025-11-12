@@ -36,6 +36,7 @@ export const login = createAsyncThunk<
   try {
     const { data } = await api.post<AuthInfo>('/login', loginData);
     saveToken(data.token);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { token, ...user } = data;
     dispatch(setUser(user));
     dispatch(setAuthorizationStatus('AUTH'));
@@ -56,6 +57,7 @@ export const checkAuth = createAsyncThunk<
 >('user/checkAuth', async (_arg, { extra: api, dispatch }) => {
   try {
     const { data } = await api.get<AuthInfo>('/login');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { token, ...user } = data;
     dispatch(setUser(user));
     dispatch(setAuthorizationStatus('AUTH'));

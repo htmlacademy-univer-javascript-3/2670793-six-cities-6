@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import Login from './Login';
 import { MemoryRouter } from 'react-router-dom';
 

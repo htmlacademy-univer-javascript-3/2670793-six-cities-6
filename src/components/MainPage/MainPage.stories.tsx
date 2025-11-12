@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import MainPage from './MainPage';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
@@ -42,7 +42,7 @@ export const Default: Story = {
     };
     const store = configureStore({
       reducer,
-      preloadedState: preloadedState as any,
+      preloadedState,
     });
 
     return (
@@ -66,7 +66,7 @@ export const Loading: Story = {
     };
     const store = configureStore({
       reducer,
-      preloadedState: preloadedState as any,
+      preloadedState,
     });
 
     return (

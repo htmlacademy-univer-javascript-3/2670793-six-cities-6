@@ -1,9 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import OfferComponent from './Offer';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { reducer } from '../../store/reducer';
 import type { Offer } from '../../types/offer';
+import { PARIS } from '../../types/city';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 const makeOffer = (id: string): Offer => ({
@@ -39,7 +40,7 @@ type Story = StoryObj<typeof OfferComponent>;
 export const Found: Story = {
   render: () => {
     const preloadedState = {
-      city: { title: 'Paris', lat: 48.8566, lng: 2.3522, zoom: 12 },
+      city: PARIS,
       offers: [makeOffer('42'), makeOffer('43')],
       isOffersLoading: false,
       authorizationStatus: 'NO_AUTH',
@@ -47,7 +48,7 @@ export const Found: Story = {
     };
     const store = configureStore({
       reducer,
-      preloadedState: preloadedState as any,
+      preloadedState,
     });
 
     return (
@@ -65,7 +66,7 @@ export const Found: Story = {
 export const NotFound: Story = {
   render: () => {
     const preloadedState = {
-      city: { title: 'Paris', lat: 48.8566, lng: 2.3522, zoom: 12 },
+      city: PARIS,
       offers: [makeOffer('1')],
       isOffersLoading: false,
       authorizationStatus: 'NO_AUTH',
@@ -73,7 +74,7 @@ export const NotFound: Story = {
     };
     const store = configureStore({
       reducer,
-      preloadedState: preloadedState as any,
+      preloadedState,
     });
 
     return (

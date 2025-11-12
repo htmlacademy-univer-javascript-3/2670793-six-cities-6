@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import Header from './Header';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
@@ -40,7 +40,7 @@ export const Authorized: Story = {
     };
     const store = configureStore({
       reducer,
-      preloadedState: preloadedState as any,
+      preloadedState,
     });
     return (
       <Provider store={store}>
