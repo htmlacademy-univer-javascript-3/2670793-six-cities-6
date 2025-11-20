@@ -24,7 +24,6 @@ jobs:
   chromatic-comment:
     name: Add chromatic link comment
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
     permissions: write-all
     steps:
       - uses: mshick/add-pr-comment@v1
