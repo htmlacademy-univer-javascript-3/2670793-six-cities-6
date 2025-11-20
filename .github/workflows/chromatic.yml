@@ -2,11 +2,11 @@ name: 'Chromatic Deployment'
 
 on:
   push:
-  pull_request:
-    types: [opened, synchronize, reopened]
-  # Mirror codesandbox behavior for initial PR open
-  pull_request_target:
-    types: [opened]
+  # pull_request:
+  #   types: [opened, synchronize, reopened]
+  ## Mirror codesandbox behavior for initial PR open
+  # pull_request_target:
+  #   types: [opened]
 
 jobs:
   chromatic-deployment:
