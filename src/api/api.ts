@@ -1,6 +1,8 @@
 import axios from 'axios';
-import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+import type { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { getToken } from './token';
+import { store } from '../store';
+import { setAuthorizationStatus } from '../store/action';
 
 const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
@@ -18,6 +20,16 @@ export const createAPI = (): AxiosInstance => {
     }
     return config;
   });
+
+  api.interceptors.response.use(
+    (response: AxiosResponse) => response,
+    (error: AxiosError) => {
+      if (error.response?.status === 401) {
+        store.dispatch(setAuthorizationStatus('NO_AUTH'));
+      }
+      throw error;
+    }
+  );
 
   return api;
 };

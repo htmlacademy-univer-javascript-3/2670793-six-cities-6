@@ -1,9 +1,11 @@
 import { type FC } from 'react';
 import PlaceCard from '../PlaceCard/PlaceCard';
 import Sprite from '../Sprite/Sprite';
+import Header from '../Header/Header';
 import ReviewForm from '../ReviewForm/ReviewForm';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAppSelector, selectOffers } from '../../store';
+import avatarMax from '../../../public/img/avatar-max.jpg?url';
 
 const getTypeDisplayName = (type: string) => {
   switch (type) {
@@ -34,34 +36,7 @@ const OfferComponent: FC = () => {
       <Sprite />
 
       <div className="page">
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <Link className="header__logo-link" to="/">
-                  <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                </Link>
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                      <span className="header__favorite-count">3</span>
-                    </a>
-                  </li>
-                  <li className="header__nav-item">
-                    <a className="header__nav-link" href="#">
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <Header showNavigation />
 
         <main className="page__main page__main--property">
           <section className="property">
@@ -161,7 +136,7 @@ const OfferComponent: FC = () => {
                     <li className="reviews__item">
                       <div className="reviews__user user">
                         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                          <img className="reviews__avatar user__avatar" src="/img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
+                          <img className="reviews__avatar user__avatar" src={avatarMax} width="54" height="54" alt="Reviews avatar" />
                         </div>
                         <span className="reviews__user-name">
                                                     Max

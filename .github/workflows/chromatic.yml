@@ -1,0 +1,36 @@
+name: 'Chromatic Deployment'
+
+on:
+  push:
+  # pull_request:
+  #   types: [opened, synchronize, reopened]
+  ## Mirror codesandbox behavior for initial PR open
+  # pull_request_target:
+  #   types: [opened]
+
+jobs:
+  chromatic-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.MY_TOKEN }}
+
+  chromatic-comment:
+    name: Add chromatic link comment
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: mshick/add-pr-comment@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          message: |
+            You can check this code in chromatic with the link
+            https://www.chromatic.com/builds?appId=${{ secrets.CHROMATIC_PROJECT_ID }}
+

@@ -1,0 +1,15 @@
+name: Print CodeSandbox link
+
+on:
+  push:
+
+jobs:
+  print-codesandbox-link:
+    name: Print CodeSandbox link for manual PR comment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show link
+        run: |
+          echo "You can open this branch on CodeSandbox:"
+          echo "https://githubbox.com/${{ github.repository }}/tree/${{ github.ref_name }}"
+
