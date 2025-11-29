@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { Offer } from '../types/offer';
 import type { AxiosInstance } from 'axios';
-import { loadOffers, setOffersLoading, setAuthorizationStatus, setUser } from './action';
+import { loadOffers, setOffersLoading, setAuthorizationStatus, setUser } from './slices';
 import type { AppDispatch } from '../types/state';
 import { dropToken, saveToken } from '../api/token';
 import type { LoginData, AuthInfo } from '../types/auth';

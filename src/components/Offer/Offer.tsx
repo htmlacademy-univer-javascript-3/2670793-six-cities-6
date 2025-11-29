@@ -4,7 +4,7 @@ import Sprite from '../Sprite/Sprite';
 import Header from '../Header/Header';
 import ReviewForm from '../ReviewForm/ReviewForm';
 import { useParams } from 'react-router-dom';
-import { useAppSelector, selectOffers } from '../../store';
+import { useAppSelector, selectOfferById, selectNearPlaces } from '../../store';
 import avatarMax from '../../../public/img/avatar-max.jpg?url';
 
 const getTypeDisplayName = (type: string) => {
@@ -21,15 +21,15 @@ const getTypeDisplayName = (type: string) => {
 };
 
 const OfferComponent: FC = () => {
-  const offers = useAppSelector(selectOffers);
   const { id } = useParams<{ id: string }>();
-  const currentOffer = offers.find((offer) => offer.id === id);
+  const currentOffer = useAppSelector((state) => selectOfferById(state, id || ''));
+  const nearPlaces = useAppSelector((state) => selectNearPlaces(state, id || ''));
 
   if (!currentOffer) {
     return <div>Offer not found</div>;
   }
 
-  const nearPlaces = offers.filter((offer) => offer.id !== currentOffer.id);
+  //const nearPlaces = offers.filter((offer) => offer.id !== currentOffer.id);
 
   return (
     <>
