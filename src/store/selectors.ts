@@ -58,16 +58,14 @@ export const selectFavoriteOffers = createSelector(
 // Selector for favorite offers grouped by city
 export const selectFavoriteOffersByCity = createSelector(
   [selectFavoriteOffers],
-  (favoriteOffers: Offer[]) => {
-    return favoriteOffers.reduce((acc, offer) => {
-      const cityName = offer.city.name;
-      if (!acc[cityName]) {
-        acc[cityName] = [];
-      }
-      acc[cityName].push(offer);
-      return acc;
-    }, {} as Record<string, Offer[]>);
-  }
+  (favoriteOffers: Offer[]) => favoriteOffers.reduce((acc, offer) => {
+    const cityName = offer.city.name;
+    if (!acc[cityName]) {
+      acc[cityName] = [];
+    }
+    acc[cityName].push(offer);
+    return acc;
+  }, {} as Record<string, Offer[]>)
 );
 
 // Selector for offer by id

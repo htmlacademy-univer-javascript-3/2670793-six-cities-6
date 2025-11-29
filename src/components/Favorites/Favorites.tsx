@@ -22,34 +22,32 @@ const getTypeDisplayName = (type: Offer['type']) => {
 const Favorites: FC = () => {
   const offersByCity = useAppSelector(selectFavoriteOffersByCity);
 
-  const citySections = useMemo(() => {
-    return Object.entries(offersByCity).map(([cityName, cityOffers]) => (
-      <li key={cityName} className="favorites__locations-items">
-        <div className="favorites__locations locations locations--current">
-          <div className="locations__item">
-            <a className="locations__item-link" href="#">
-              <span>{cityName}</span>
-            </a>
-          </div>
+  const citySections = useMemo(() => Object.entries(offersByCity).map(([cityName, cityOffers]) => (
+    <li key={cityName} className="favorites__locations-items">
+      <div className="favorites__locations locations locations--current">
+        <div className="locations__item">
+          <a className="locations__item-link" href="#">
+            <span>{cityName}</span>
+          </a>
         </div>
-        <div className="favorites__places">
-          {cityOffers.map((offer) => (
-            <FavoritesCard
-              key={offer.id}
-              id={offer.id}
-              image={offer.previewImage}
-              price={offer.price}
-              rating={offer.rating}
-              title={offer.title}
-              type={getTypeDisplayName(offer.type)}
-              isPremium={offer.isPremium}
-              isBookmarked={offer.isFavorite}
-            />
-          ))}
-        </div>
-      </li>
-    ));
-  }, [offersByCity]);
+      </div>
+      <div className="favorites__places">
+        {cityOffers.map((offer) => (
+          <FavoritesCard
+            key={offer.id}
+            id={offer.id}
+            image={offer.previewImage}
+            price={offer.price}
+            rating={offer.rating}
+            title={offer.title}
+            type={getTypeDisplayName(offer.type)}
+            isPremium={offer.isPremium}
+            isBookmarked={offer.isFavorite}
+          />
+        ))}
+      </div>
+    </li>
+  )), [offersByCity]);
 
   return (
     <>
