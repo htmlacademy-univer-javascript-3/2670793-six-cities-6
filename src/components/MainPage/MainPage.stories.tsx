@@ -2,7 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import MainPage from './MainPage';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { reducer, State, AuthorizationStatus } from '../../store/reducer';
+import { reducer } from '../../store/reducer';
+import type { State } from '../../types/state';
+import type { AuthorizationStatus } from '../../store/slices/user-slice';
 import { PARIS } from '../../types/city';
 import type { Offer } from '../../types/offer';
 import { MemoryRouter } from 'react-router-dom';
@@ -34,11 +36,9 @@ type Story = StoryObj<typeof MainPage>;
 export const Default: Story = {
   render: () => {
     const preloadedState: Partial<State> = {
-      city: PARIS,
-      offers: [sampleOffer('1', 'Paris'), sampleOffer('2', 'Paris')],
-      isOffersLoading: false,
-      authorizationStatus: 'NO_AUTH' as AuthorizationStatus,
-      user: null,
+      city: { city: PARIS },
+      offers: { offers: [sampleOffer('1', 'Paris'), sampleOffer('2', 'Paris')], isOffersLoading: false },
+      user: { authorizationStatus: 'NO_AUTH' as AuthorizationStatus, user: null },
     };
     const store = configureStore({
       reducer,
@@ -58,11 +58,9 @@ export const Default: Story = {
 export const Loading: Story = {
   render: () => {
     const preloadedState: Partial<State> = {
-      city: PARIS,
-      offers: [],
-      isOffersLoading: true,
-      authorizationStatus: 'NO_AUTH' as AuthorizationStatus,
-      user: null,
+      city: { city: PARIS },
+      offers: { offers: [], isOffersLoading: true },
+      user: { authorizationStatus: 'NO_AUTH' as AuthorizationStatus, user: null },
     };
     const store = configureStore({
       reducer,
