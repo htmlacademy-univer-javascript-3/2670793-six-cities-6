@@ -1,11 +1,23 @@
 import axios from 'axios';
 import type { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { getToken } from './token';
-import { store } from '../store';
 import { setAuthorizationStatus } from '../store/action';
 
 const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
+
+// Lazy getter to avoid circular dependency
+let storeModulePromise: Promise<typeof import('../store')> | null = null;
+
+const getStore = async () => {
+  if (!storeModulePromise) {
+    // Use dynamic import to break circular dependency
+    // This will be resolved when the interceptor is actually called
+    storeModulePromise = import('../store');
+  }
+  const storeModule = await storeModulePromise;
+  return storeModule.store;
+};
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -23,9 +35,14 @@ export const createAPI = (): AxiosInstance => {
 
   api.interceptors.response.use(
     (response: AxiosResponse) => response,
-    (error: AxiosError) => {
+    async (error: AxiosError) => {
       if (error.response?.status === 401) {
-        store.dispatch(setAuthorizationStatus('NO_AUTH'));
+        // Access store lazily to break circular dependency
+        // The store will be available when this interceptor runs
+        const store = await getStore();
+        if (store) {
+          store.dispatch(setAuthorizationStatus('NO_AUTH'));
+        }
       }
       throw error;
     }
